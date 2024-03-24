@@ -32,6 +32,7 @@ const Nhamogram = () => {
 
   const handleNext = (amount) => () => {
     setCount(prevCount => prevCount + amount)
+    setIncrement(0)
     setStep(step + 1);
   };
 
