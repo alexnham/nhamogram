@@ -155,6 +155,15 @@ const Nhamogram = () => {
           <form>
             <div>
               <div className="flex flex-col gap-5 pt-10">
+              <label>
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="n/a"
+                    onChange={() => setIncrement(0)}
+                  />
+                  Not Applicable
+                </label>
                 <label>
                   <input
                     type="radio"
@@ -207,6 +216,15 @@ const Nhamogram = () => {
           <form>
             <div>
               <div className="flex flex-col gap-5 pt-10">
+              <label>
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="n/a"
+                    onChange={() => setIncrement(0)}
+                  />
+                  Not Applicable
+                </label>
                 <label>
                   <input
                     type="radio"
