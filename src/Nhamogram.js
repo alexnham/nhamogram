@@ -271,7 +271,7 @@ const Nhamogram = () => {
 
       {step === 6 &&
         <div className="h-screen w-screen justify-center items-center">
-          <h1></h1>
+          <h1>Based on your answers:</h1>
           <h1>{answer}</h1>
           {ancillary && <h1>Ancillary tests recommended</h1>}
         </div>
