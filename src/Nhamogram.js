@@ -82,7 +82,10 @@ const Nhamogram = () => {
                     type="radio"
                     name="gender"
                     value="Yes"
-                    onChange={() => setIncrement(80)}
+                    onChange={() => {
+                      setIncrement(80)
+                      setAncillary(true)
+                    }}
                   />
                   Yes
                 </label>
@@ -274,6 +277,7 @@ const Nhamogram = () => {
           <h1>Based on your answers:</h1>
           <h1>{answer}</h1>
           {ancillary && <h1>Ancillary tests recommended</h1>}
+          <button className="border bg-slate-200 px-5" onClick={() => window.location.reload()}>Continue</button>
         </div>
       }
     </div>

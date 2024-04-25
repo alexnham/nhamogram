@@ -1,4 +1,8 @@
 const Navbar = () => {
+
+   
+
+
     return (  
         <div className="h-20 w-screen bg-slate-200 flex justify-center items-center" >
             <h1>Adrenal Nhamogram</h1>
