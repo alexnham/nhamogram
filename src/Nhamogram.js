@@ -1,39 +1,32 @@
 import { useEffect, useState } from "react";
 
 const Nhamogram = () => {
-  const [step, setStep] = useState(1);
-  const [count, setCount] = useState(0);
-  const [increment, setIncrement] = useState(0);
-  const [answer, setAnswer] = useState("");
-  const [ancillary, setAncillary] = useState(false)
+  const [step, setStep] = useState(1)
+  const [hu, setHu] = useState(false);
+  const [suspected, setSuspected] = useState('');
+  const [functional, setFunctional] = useState(false);
+  const [size, setSize] = useState(false);
+  const [answer, setAnswer] = useState('');
 
-  useEffect(() => {
-    switch (true) {
-      case count === 0:
-      setAnswer("No Follow Up")
-      break;
-      case count === 10:
-        setAnswer("Repeat CT in 6-12 months")
-        break;
-      case count >= 20 && count <= 40:
-        setAnswer("Repeat imaging in 3-6 months vs. consider adrenalectomy")
-        break;
-      case count >= 50 && count <= 70:
-        setAnswer("Consider biopsy or PET/CT")
-        break;
-      case count >= 80:
-        // Handle count 80 or more
-        setAnswer("Adrenalectomy")
-        break;
-      default:
-        break;
+  const determineAnswer = () => {
+    if (hu === false && suspected === 'Benign' && functional === false && size === false) {
+      setAnswer('No Follow Up');
+    } else if (hu === false && suspected === 'Benign' && functional === false && size === true) {
+      setAnswer('Repeat CT in 6-12 months');
+    } else if (suspected === 'Benign' && functional === true) {
+      setAnswer('Figure 2');
+    } else if (hu === true && suspected === 'Other') {
+      setAnswer('Repeat imaging in 3-6 months vs. consider adrenalectomy');
+    } else if (hu === true && suspected === 'Metastasis') {
+      setAnswer('Consider biopsy or PET/CT');
+    } else if (hu === true && suspected === 'ACC') {
+      setAnswer('Adrenalectomy');
     }
-  },[count])
+  };
 
-  const handleNext = (amount) => () => {
-    setCount(prevCount => prevCount + amount)
-    setIncrement(0)
-    setStep(step + 1);
+  const handleNext = () => {
+    determineAnswer()
+    setStep(step + 1)
   };
 
   return (
@@ -49,7 +42,7 @@ const Nhamogram = () => {
                     type="radio"
                     name="gender"
                     value="<10 HU"
-                    onChange={() => setIncrement(0)}
+                    onChange={() => setHu(false)}
                   />
                   Under 10 HU
                 </label>
@@ -58,14 +51,14 @@ const Nhamogram = () => {
                     type="radio"
                     name="gender"
                     value=">10 HU   "
-                    onChange={() => setIncrement(10)}
+                    onChange={() => setHu(true)}
                   />
                   Over or Equal to 10 HU
                 </label>
               </div>
               
             </div>
-            <button className="bg-slate-200 border p-3 rounded-lg mt-10 " type="button" onClick={handleNext(increment)}>
+            <button className="bg-slate-200 border p-3 rounded-lg mt-10 " type="button" onClick={() => handleNext()}>
               Next
             </button>
           </form>
@@ -83,8 +76,7 @@ const Nhamogram = () => {
                     name="gender"
                     value="Yes"
                     onChange={() => {
-                      setIncrement(80)
-                      setAncillary(true)
+                      setFunctional(true)
                     }}
                   />
                   Yes
@@ -94,7 +86,11 @@ const Nhamogram = () => {
                     type="radio"
                     name="gender"
                     value="Indeterminate"
-                    onChange={() => setAncillary(true)}
+                    onChange={() =>  {
+                      setFunctional(true)
+                    }
+                    }
+
                   />
                   Indeterminate
                 </label>
@@ -103,7 +99,7 @@ const Nhamogram = () => {
                     type="radio"
                     name="gender"
                     value="No"
-                    onChange={() => setIncrement(0)}
+                    onChange={() => setFunctional(false)}
                   />
                   No
                 </label>
@@ -112,7 +108,7 @@ const Nhamogram = () => {
             </div>
 
 
-            <button className="bg-slate-200 border p-3 rounded-lg mt-10 " type="button" onClick={handleNext(increment)}>
+            <button className="bg-slate-200 border p-3 rounded-lg mt-10 " type="button" onClick={() => handleNext()}>
               Next
             </button>
           </form>
@@ -130,7 +126,7 @@ const Nhamogram = () => {
                     type="radio"
                     name="gender"
                     value="<4cm"
-                    onChange={() => setIncrement(0)}
+                    onChange={() => setSize(false)}
                   />
                   Under 4cm
                 </label>
@@ -139,13 +135,13 @@ const Nhamogram = () => {
                     type="radio"
                     name="gender"
                     value=">10 HU   "
-                    onChange={() => setIncrement(10)}
+                    onChange={() => setSize(false)}
                   />
                   Over or Equal to 4cm
                 </label>
               </div>
             </div>
-            <button className="bg-slate-200 border p-3 rounded-lg mt-10 " type="button" onClick={handleNext(increment)}>
+            <button className="bg-slate-200 border p-3 rounded-lg mt-10 " type="button" onClick={() => handleNext()}>
               Next
             </button>
           </form>
@@ -163,7 +159,7 @@ const Nhamogram = () => {
                     type="radio"
                     name="gender"
                     value="n/a"
-                    onChange={() => setIncrement(0)}
+                    onChange={() => setSuspected('Benign')}
                   />
                   Not Applicable
                 </label>
@@ -172,7 +168,7 @@ const Nhamogram = () => {
                     type="radio"
                     name="gender"
                     value="Benign"
-                    onChange={() => setIncrement(0)}
+                    onChange={() => setSuspected('Benign')}
                   />
                   Relative washout ≥ 40% with absolute washout ≥ 60% (Benign)
                 </label>
@@ -181,7 +177,7 @@ const Nhamogram = () => {
                     type="radio"
                     name="gender"
                     value="Suggestive of other"
-                    onChange={() => setIncrement(20)}
+                    onChange={() => setSuspected('Other')}
                   />
                   Relative washout ≤ 40% with absolute washout ≤ 60% (Suggestive of other)                </label>
                 <label>
@@ -189,7 +185,7 @@ const Nhamogram = () => {
                     type="radio"
                     name="gender"
                     value="Cancer History"
-                    onChange={() => setIncrement(50)}
+                    onChange={() => setSuspected('Metastasis')}
                   />
                   Relative washout ≤40% with absolute washout ≤60% (Suggestive of
                   50 points
@@ -200,13 +196,13 @@ const Nhamogram = () => {
                     type="radio"
                     name="gender"
                     value="ACC  "
-                    onChange={() => setIncrement(80)}
+                    onChange={() => setSuspected('ACC')}
                   />
                   Relative washout ≤40% with absolute washout ≤60% (Suggestive of ACC)
                 </label>
               </div>
             </div>
-            <button className="bg-slate-200 border p-3 rounded-lg mt-10 " type="button" onClick={handleNext(increment)}>
+            <button className="bg-slate-200 border p-3 rounded-lg mt-10 " type="button" onClick={() => handleNext()}>
               Next
             </button>
           </form>
@@ -224,7 +220,7 @@ const Nhamogram = () => {
                     type="radio"
                     name="gender"
                     value="n/a"
-                    onChange={() => setIncrement(0)}
+                    onChange={() => setSuspected('Benign')}
                   />
                   Not Applicable
                 </label>
@@ -233,7 +229,7 @@ const Nhamogram = () => {
                     type="radio"
                     name="gender"
                     value="Benign"
-                    onChange={() => setIncrement(0)}
+                    onChange={() => setSuspected('Benign')}
                   />
                   Microscopic fat with homogenous signal intensity drop (Benign)
                 </label>
@@ -242,7 +238,7 @@ const Nhamogram = () => {
                     type="radio"
                     name="gender"
                     value="Suggestive of other"
-                    onChange={() => setIncrement(20)}
+                    onChange={() => setSuspected('Other')}
                   />
                   Heterogenous signal intensity dropout (Suggestive of other)</label>
                 <label>
@@ -250,7 +246,7 @@ const Nhamogram = () => {
                     type="radio"
                     name="gender"
                     value="Cancer History"
-                    onChange={() => setIncrement(50)}
+                    onChange={() => setSuspected('Metastasis')}
                   />
                   Heterogenous signal intensity dropout (Suggestive of metastasis with history of cancer)
                 </label>
@@ -259,13 +255,13 @@ const Nhamogram = () => {
                     type="radio"
                     name="gender"
                     value="ACC  "
-                    onChange={() => setIncrement(80)}
+                    onChange={() => setSuspected('ACC')}
                   />
                   Heterogenous signal intensity dropout (Suggestive of ACC)
                 </label>
               </div>
             </div>
-            <button className="bg-slate-200 border p-3 rounded-lg mt-10 " type="button" onClick={handleNext(increment)}>
+            <button className="bg-slate-200 border p-3 rounded-lg mt-10 " type="button" onClick={() => handleNext()}>
               Next
             </button>
           </form>
@@ -276,7 +272,6 @@ const Nhamogram = () => {
         <div className="h-screen w-screen justify-center items-center">
           <h1>Based on your answers:</h1>
           <h1>{answer}</h1>
-          {ancillary && <h1>Ancillary tests recommended</h1>}
           <button className="border bg-slate-200 px-5" onClick={() => window.location.reload()}>Continue</button>
         </div>
       }
