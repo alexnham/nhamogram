@@ -8,6 +8,7 @@ const Nhamogram = () => {
   const [size, setSize] = useState(false);
   const [answer, setAnswer] = useState('');
   const [management, setManagement] = useState('');
+  const [firstSuspected, setFirstSuspected] = useState('')
 
   const determineAnswer = () => {
     if (hu === false && suspected === 'Benign' && functional === false && size === false) {
@@ -25,7 +26,6 @@ const Nhamogram = () => {
     } else {
       setAnswer("Error")
     }
-
     if (management === "Hypercortisolism") {
       setAnswer('Measure plasma ACTH and Consider adrenalectomy with patients with cushings syndrome and select patients with mild autonomous cortisol secretion');
     } else if (management === "Pheochromocytoma") {
@@ -38,6 +38,7 @@ const Nhamogram = () => {
   const handleNext = () => {
     determineAnswer();
     setStep(step + 1);
+    console.log(answer)
   };
 
   return (
@@ -110,7 +111,7 @@ const Nhamogram = () => {
                 No
               </label>
             </div>
-            <button className="bg-gray-500 hover:bg-gray-800 hover:bg-gray-800 text-white p-3 rounded-lg mt-6 w-full" type="button" onClick={handleNext}>
+            <button className="bg-gray-500 hover:bg-gray-800  text-white p-3 rounded-lg mt-6 w-full" type="button" onClick={handleNext}>
               Next
             </button>
           </form>
@@ -160,7 +161,10 @@ const Nhamogram = () => {
                   type="radio"
                   name="suspected"
                   value="n/a"
-                  onChange={() => setSuspected('Benign')}
+                  onChange={() => {
+                    setSuspected('')
+                    setFirstSuspected('')
+                  }}
                   className="mr-2"
                 />
                 Not Applicable
@@ -170,7 +174,10 @@ const Nhamogram = () => {
                   type="radio"
                   name="suspected"
                   value="Benign"
-                  onChange={() => setSuspected('Benign')}
+                  onChange={() => {
+                    setSuspected('Benign')
+                    setFirstSuspected('Benign')
+                  }}
                   className="mr-2"
                 />
                 Relative washout ≥ 40% with absolute washout ≥ 60% (Benign)
@@ -180,7 +187,10 @@ const Nhamogram = () => {
                   type="radio"
                   name="suspected"
                   value="Other"
-                  onChange={() => setSuspected('Other')}
+                  onChange={() => {
+                    setSuspected('Other')
+                    setSuspected('Other')
+                  }}
                   className="mr-2"
                 />
                 Relative washout ≤ 40% with absolute washout ≤ 60% (Suggestive of other)
@@ -190,7 +200,11 @@ const Nhamogram = () => {
                   type="radio"
                   name="suspected"
                   value="Metastasis"
-                  onChange={() => setSuspected('Metastasis')}
+                  onChange={() => {
+                    setSuspected('Metastasis')
+                    setFirstSuspected('Metastasis')
+
+                  }}
                   className="mr-2"
                 />
                 Relative washout ≤40% with absolute washout ≤60% (Suggestive of metastasis with history of cancer)
@@ -200,7 +214,12 @@ const Nhamogram = () => {
                   type="radio"
                   name="suspected"
                   value="ACC"
-                  onChange={() => setSuspected('ACC')}
+                  onChange={() => {
+                    setSuspected('ACC')
+                    setFirstSuspected('ACC')
+                  }
+                    
+                  }
                   className="mr-2"
                 />
                 Relative washout ≤40% with absolute washout ≤60% (Suggestive of ACC)
@@ -223,7 +242,7 @@ const Nhamogram = () => {
                   type="radio"
                   name="suspected"
                   value="n/a"
-                  onChange={() => setSuspected('Benign')}
+                  onChange={() => setSuspected(firstSuspected)}
                   className="mr-2"
                 />
                 Not Applicable
