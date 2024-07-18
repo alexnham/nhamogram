@@ -22,6 +22,8 @@ const Nhamogram = () => {
       setAnswer('Consider biopsy or PET/CT');
     } else if (hu === true && suspected === 'ACC') {
       setAnswer('Adrenalectomy');
+    } else {
+      setAnswer("Error")
     }
 
     if (management === "Hypercortisolism") {
