@@ -1,14 +1,9 @@
 import { useEffect, useState } from "react";
 
 const Nhamogram = () => {
-  const [step, setStep] = useState(1);
-  const [hu, setHu] = useState(false);
-  const [suspected, setSuspected] = useState('');
-  const [functional, setFunctional] = useState(false);
-  const [size, setSize] = useState(false);
   const [answer, setAnswer] = useState('');
-  const [management, setManagement] = useState('');
-  const [firstSuspected, setFirstSuspected] = useState('')
+  const [options, setOptions] = useState();
+  const [question, setQuestion] = useState('');
 
   const determineAnswer = () => {
     if (hu === false && suspected === 'Benign' && functional === false && size === false) {
@@ -26,6 +21,8 @@ const Nhamogram = () => {
     } else {
       setAnswer("Error")
     }
+    // HTN: hypertension; hypoK: hypokalemia
+    
     if (management === "Hypercortisolism") {
       setAnswer('Measure plasma ACTH and Consider adrenalectomy with patients with cushings syndrome and select patients with mild autonomous cortisol secretion');
     } else if (management === "Pheochromocytoma") {
@@ -53,7 +50,7 @@ const Nhamogram = () => {
                   type="radio"
                   name="hu"
                   value="<10 HU"
-                  onChange={() => setHu(false)}
+                  onChange={() => setOptions(false)}
                   className="mr-2"
                 />
                 Under 10 HU
@@ -63,7 +60,7 @@ const Nhamogram = () => {
                   type="radio"
                   name="hu"
                   value=">10 HU"
-                  onChange={() => setHu(true)}
+                  onChange={() => setOptions(true)}
                   className="mr-2"
                 />
                 Over or Equal to 10 HU
@@ -85,7 +82,7 @@ const Nhamogram = () => {
                   type="radio"
                   name="functional"
                   value="Yes"
-                  onChange={() => setFunctional(true)}
+                  onChange={() => setOptions(true)}
                   className="mr-2"
                 />
                 Yes
@@ -95,7 +92,7 @@ const Nhamogram = () => {
                   type="radio"
                   name="functional"
                   value="Indeterminate"
-                  onChange={() => setFunctional(true)}
+                  onChange={() => setOptions(true)}
                   className="mr-2"
                 />
                 Indeterminate
@@ -105,7 +102,7 @@ const Nhamogram = () => {
                   type="radio"
                   name="functional"
                   value="No"
-                  onChange={() => setFunctional(false)}
+                  onChange={() => setOptions(false)}
                   className="mr-2"
                 />
                 No
@@ -128,7 +125,7 @@ const Nhamogram = () => {
                   type="radio"
                   name="size"
                   value="<4cm"
-                  onChange={() => setSize(false)}
+                  onChange={() => setOptions(false)}
                   className="mr-2"
                 />
                 Under 4cm
@@ -138,7 +135,7 @@ const Nhamogram = () => {
                   type="radio"
                   name="size"
                   value=">4cm"
-                  onChange={() => setSize(true)}
+                  onChange={() => setOptions(true)}
                   className="mr-2"
                 />
                 Over or Equal to 4cm
@@ -162,8 +159,8 @@ const Nhamogram = () => {
                   name="suspected"
                   value="n/a"
                   onChange={() => {
-                    setSuspected('')
-                    setFirstSuspected('')
+                    setOptions('')
+                    setOptions('')
                   }}
                   className="mr-2"
                 />
@@ -175,8 +172,8 @@ const Nhamogram = () => {
                   name="suspected"
                   value="Benign"
                   onChange={() => {
-                    setSuspected('Benign')
-                    setFirstSuspected('Benign')
+                    setOptions('Benign')
+                    setOptions('Benign')
                   }}
                   className="mr-2"
                 />
@@ -188,8 +185,8 @@ const Nhamogram = () => {
                   name="suspected"
                   value="Other"
                   onChange={() => {
-                    setSuspected('Other')
-                    setSuspected('Other')
+                    setOptions('Other')
+                    setOptions('Other')
                   }}
                   className="mr-2"
                 />
@@ -201,8 +198,8 @@ const Nhamogram = () => {
                   name="suspected"
                   value="Metastasis"
                   onChange={() => {
-                    setSuspected('Metastasis')
-                    setFirstSuspected('Metastasis')
+                    setOptions('Metastasis')
+                    setOptions('Metastasis')
 
                   }}
                   className="mr-2"
@@ -215,8 +212,8 @@ const Nhamogram = () => {
                   name="suspected"
                   value="ACC"
                   onChange={() => {
-                    setSuspected('ACC')
-                    setFirstSuspected('ACC')
+                    setOptions('ACC')
+                    setOptions('ACC')
                   }
                     
                   }
@@ -242,7 +239,7 @@ const Nhamogram = () => {
                   type="radio"
                   name="suspected"
                   value="n/a"
-                  onChange={() => setSuspected(firstSuspected)}
+                  onChange={() => setOptions(firstSuspected)}
                   className="mr-2"
                 />
                 Not Applicable
@@ -252,7 +249,7 @@ const Nhamogram = () => {
                   type="radio"
                   name="suspected"
                   value="Benign"
-                  onChange={() => setSuspected('Benign')}
+                  onChange={() => setOptions('Benign')}
                   className="mr-2"
                 />
                 Microscopic fat with homogenous signal intensity drop (Benign)
@@ -262,7 +259,7 @@ const Nhamogram = () => {
                   type="radio"
                   name="suspected"
                   value="Other"
-                  onChange={() => setSuspected('Other')}
+                  onChange={() => setOptions('Other')}
                   className="mr-2"
                 />
                 Heterogenous signal intensity dropout (Suggestive of other)
@@ -272,7 +269,7 @@ const Nhamogram = () => {
                   type="radio"
                   name="suspected"
                   value="Metastasis"
-                  onChange={() => setSuspected('Metastasis')}
+                  onChange={() => setOptions('Metastasis')}
                   className="mr-2"
                 />
                 Heterogenous signal intensity dropout (Suggestive of metastasis with history of cancer)
@@ -282,7 +279,7 @@ const Nhamogram = () => {
                   type="radio"
                   name="suspected"
                   value="ACC"
-                  onChange={() => setSuspected('ACC')}
+                  onChange={() => setOptions('ACC')}
                   className="mr-2"
                 />
                 Heterogenous signal intensity dropout (Suggestive of ACC)
@@ -315,7 +312,7 @@ const Nhamogram = () => {
                   type="radio"
                   name="management"
                   value="Pheochromocytoma"
-                  onChange={() => setManagement('Pheochromocytoma')}
+                  onChange={() => setOptions('Pheochromocytoma')}
                   className="mr-2"
                 />
                 Yes
