@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Navbar from "./Navbar";
-import FlowChart from "./flowchart";
+import FlowChart from "./Flowchart";
 
 const flowChartTree = {
   id: 1,

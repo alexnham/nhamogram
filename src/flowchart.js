@@ -1,49 +1,53 @@
 import React, { useState } from 'react';
-
-const FlowChartNode = ({ node, onSelect }) => (
-    <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        {node.children.length > 1 ? (
-            <div>
-                <p className="text-2xl font-semibold mb-4">{node.question}</p>
-                <div className="flex flex-col gap-4">
-                    {node.children.map((child) => (
-                        <button
-                            key={child.id}
-                            onClick={() => onSelect(child)}
-                            className="bg-gray-500 hover:bg-gray-800 text-white p-3 rounded-lg"
-                        >
-                            {child.label}
-                        </button>
-                    ))}
-                </div>
-            </div>
-        ) : (
-            <div className="bg-gray-100 border-l-4 border-gray-500 text-gray-700 p-4 shadow-md rounded-lg  whitespace-pre-line">
-                <p className="text-lg font-semibold formatted-label">
-                    {node.children[0].label}
-                </p>
-                <button
-                    onClick={() => { window.location.reload(); }}
-                    className="mt-4 px-4 py-2 bg-gray-500 text-white font-semibold rounded hover:bg-gray-600"
-                >
-                    Continue
-                </button>
-            </div>
-
-        )}
-    </div>
-);
+import Tracking from './Tracking';
+import FlowChartNode from './FlowChartNode'; // Ensure you import this correctly
 
 const FlowChart = ({ root }) => {
+    const [prevNode, setPrevNode] = useState(null);
     const [currentNode, setCurrentNode] = useState(root);
-
+    const [tracking, setTracking] = useState([]);
+    const [nodes, setNodes] = useState([]);
+    
     const handleSelect = (node) => {
+        setTracking(prevTracking => [
+            ...prevTracking,
+            {
+                id: currentNode.id,
+                question: currentNode.question,
+                answer: node.label
+            }
+        ]);
+        setPrevNode(currentNode);
+        setNodes(prevNodes => [...prevNodes, currentNode]);
         setCurrentNode(node);
+       
+    };
+
+    const goToNode = (id) => {
+        for(let i = nodes.length; i > 0; i--) {
+            if(nodes[i-1].id === id) {
+                setCurrentNode(nodes[i-1]);
+                setPrevNode(nodes[i-2] ? nodes[i-2] : null)
+                setNodes(prevNodes => prevNodes.slice(0, i-1));
+                setTracking(prevTracking => prevTracking.slice(0, i-1));
+                break;
+            }
+        }
+    }
+
+    const handleBack = () => {
+        setCurrentNode(nodes[nodes.length-1]);
+        setPrevNode(nodes[nodes.length - 2] ? nodes[nodes.length - 2] : null)
+        setNodes(prevNodes => prevNodes.slice(0, -1));
+        setTracking(prevTracking => prevTracking.slice(0, -1));        
     };
 
     return (
-        <div className="h-screen w-screen flex flex-col items-center justify-center p-10 bg-gray-100">
-            <FlowChartNode node={currentNode} onSelect={handleSelect} />
+        <div className="flex h-screen w-screen bg-gray-100">
+            <Tracking tracking={tracking} handleClick={goToNode} />
+            <div className="flex h-full w-full justify-center items-center p-6">
+                <FlowChartNode node={currentNode} onSelect={handleSelect} onBack={handleBack} prevNode={prevNode} />
+            </div>
         </div>
     );
 };
