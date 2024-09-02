@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Navbar from "./Navbar";
-import FlowChart from "./Flowchart";
+import FlowChart from "./Flowchart.js";
 const flowChartTree = {
   id: 1,
   question: 'Was a non-contrast CT scan performed?',
