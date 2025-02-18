@@ -13,252 +13,151 @@ const flowChartTree = {
         {
           id: 3,
           label: ">= 10",
-          question: 'Was Second Line Imaging performed?',
+          question: 'Is It Functional?',
           children: [
             {
               id: 4,
               label: "Yes",
-              question: 'Second Line Imaging Characteristics',
+              question: 'Was Second Line Imaging performed?',
               children: [
                 {
                   id: 5,
-                  label: "Benign Functional",
-                  question: "Benign Functional Adenoma \n Hyperaldosteronism",
+                  label: "Yes",
+                  question: 'What are the second line imaging characteristics suggestive of?',
                   children: [
-                    {
-                      id: 6,
-                      label: "Yes",
-                      question: "Perform lateralization using adrenal vein sampling followed by an adrenalectomy.",
-                      children: [
-                        {
-                          id: 7,
-                          label: "If unilateral secretion",
-                          children: [
-                            { id: 8, label: "Consider adrenalectomy" }
-                          ]
-                        },
-                        {
-                          id: 9,
-                          label: "If bilateral secretion",
-                          children: [
-                            { id: 10, label: "Consider medical management" }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      id: 11,
-                      label: "No",
-                      question: "Hypercortisolism",
-                      children: [
-                        {
-                          id: 12,
-                          label: "Yes",
-                          children: [
-                            {
-                              id: 13,
-                              label: "Measure plasma ACTH and consider adrenalectomy with patients with Cushing's syndrome and select patients with mild autonomous cortisol secretion"
-                            }
-                          ]
-                        },
-                        {
-                          id: 14,
-                          label: "No",
-                          question: "Pheochromocytoma",
-                          children: [
-                            {
-                              id: 15,
-                              label: "Yes",
-                              children: [
-                                { id: 16, label: "Adrenalectomy, MIS where feasible" }
-                              ]
-                            },
-                            {
-                              id: 17,
-                              label: "No",
-                              children: [
-                                { id: 18, label: "Consider Medical Management" }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
+                    { id: 6, label: "Benign Adenoma", children: [{ id: 7, label: "Adrenalectomy" }] },
+                    { id: 24, label: "Equivocal lesion", children: [{ id: 25, label: "Adrenalectomy" }] },
+                    { id: 26, label: "Suspected Metastasis", children: [{ id: 27, label: "Consider biopsy and/or PET/CT" }] },
+                    { id: 28, label: "Adrenocortical carcinoma (ACC)", children: [{ id: 29, label: "Adrenalectomy + lymphadenectomy, open favored when increased risk of tumor rupture" }] }
                   ]
                 },
                 {
-                  id: 19,
-                  label: "Benign Non-Functional",
-                  question: "Benign Non-Functional Adenoma\nWhat is the size?",
+                  id: 30,
+                  label: "No",
                   children: [
-                    {
-                      id: 20,
-                      label: "< 4cm",
-                      children: [
-                        { id: 21, label: "No radiographic or hormonal follow-up" }
-                      ]
-                    },
-                    {
-                      id: 22,
-                      label: "> 4cm",
-                      children: [
-                        { id: 23, label: "Repeat CT in 6–12 months" }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  id: 24,
-                  label: "Equivocal non-functional lesion",
-                  children: [
-                    { id: 25, label: "Repeat imaging in 3–6 months vs. consider adrenalectomy" }
-                  ]
-                },
-                {
-                  id: 26,
-                  label: "Suspected Metastasis",
-                  children: [
-                    { id: 27, label: "Consider biopsy and/or PET/CT" }
-                  ]
-                },
-                {
-                  id: 28,
-                  label: "ACC",
-                  children: [
-                    { id: 29, label: "Adrenalectomy + lymphadenectomy, open favored when increased risk of tumor rupture" }
+                    { id: 31, label: "Perform Chemical shift MRI if available or contrast-enhanced washout CT" }
                   ]
                 }
               ]
             },
             {
-              id: 30,
+              id: 32,
               label: "No",
+              question: 'Was Second Line Imaging performed?',
               children: [
-                { id: 31, label: "Perform Chemical shift MRI if available or contrast-enhanced washout CT" }
+                {
+                  id: 33,
+                  label: "Yes",
+                  question: 'What are the second line imaging characteristics suggestive of?',
+                  children: [
+                    { id: 34, label: "Benign Adenoma", children: [{id: 35, label: "No radiographic or hormonal follow-up" }] },
+                    { id: 52, label: "Equivocal lesion", children: [{ id: 53, label: "Repeat imaging in 3–6 months vs. consider adrenalectomy" }] },
+                    { id: 54, label: "Suspected Metastasis", children: [{ id: 55, label: "Consider biopsy and/or PET/CT" }] },
+                    { id: 56, label: "Adrenocortical carcinoma (ACC)", children: [{ id: 57, label: "Adrenalectomy + lymphadenectomy, open favored when increased risk of tumor rupture" }] }
+                  ]
+                },
+                {
+                  id: 58,
+                  label: "No",
+                  children: [
+                    { id: 59, label: "Perform Chemical shift MRI if available or contrast-enhanced washout CT" }
+                  ]
+                }
+              ]
+            },
+            {
+              id: 60,
+              label: "Testing Not Yet Performed",
+              children: [
+                {
+                  id: 61,
+                  label:
+                    "1. Test serum renin/aldosterone ratio only if there is hypertension and or hyperkalemia\n" +
+                    "2. Perform 1mg dexamethasone suppression test\n" +
+                    "3. Consider testing for plasma-free metanephrines or 24-hour urinary fractionated metanephrines if symptoms of catecholamine excess"
+                }
               ]
             }
           ]
         },
         {
-          id: 32,
+          id: 62,
           label: "< 10",
           question: 'Is It Functional?',
           children: [
             {
-              id: 33,
+              id: 63,
               label: "Yes",
-              question: "Benign Functional Adenoma \n Hyperaldosteronism",
+              question: "What type of hyperfunctioning lesion is it?",
               children: [
                 {
-                  id: 34,
-                  label: "Yes",
+                  id: 64,
+                  label: "Hyperaldosteronism",
                   question: "Perform lateralization using adrenal vein sampling followed by an adrenalectomy.",
                   children: [
                     {
-                      id: 35,
+                      id: 65,
                       label: "If unilateral secretion",
                       children: [
-                        { id: 36, label: "Consider adrenalectomy" }
+                        { id: 66, label: "Consider adrenalectomy" }
                       ]
                     },
                     {
-                      id: 37,
+                      id: 67,
                       label: "If bilateral secretion",
                       children: [
-                        { id: 38, label: "Consider medical management" }
+                        { id: 68, label: "Consider medical management" }
                       ]
                     }
                   ]
                 },
                 {
-                  id: 39,
-                  label: "No",
-                  question: "Hypercortisolism",
+                  id: 69,
+                  label: "Hypercortisolism",
                   children: [
-                    {
-                      id: 40,
-                      label: "Yes",
-                      children: [
-                        {
-                          id: 41,
-                          label: "Measure plasma ACTH and consider adrenalectomy with patients with Cushing's syndrome and select patients with mild autonomous cortisol secretion"
-                        }
-                      ]
-                    },
-                    {
-                      id: 42,
-                      label: "No",
-                      question: "Pheochromocytoma",
-                      children: [
-                        {
-                          id: 43,
-                          label: "Yes",
-                          children: [
-                            { id: 44, label: "Adrenalectomy, MIS where feasible" }
-                          ]
-                        },
-                        {
-                          id: 45,
-                          label: "No",
-                          children: [
-                            { id: 46, label: "Consider Medical Management" }
-                          ]
-                        }
-                      ]
-                    }
+                    { id: 70, label: "Adrenalectomy, MIS where feasible" }
+                  ]
+                },
+                {
+                  id: 71,
+                  label: "Pheochromocytoma",
+                  children: [
+                    { id: 72, label: "Adrenalectomy, MIS where feasible. \n Perform alpha followed by beta blocking" }
                   ]
                 }
               ]
             },
             {
-              id: 47,
+              id: 73,
               label: "No",
               question: "Benign Non-Functional Adenoma\nWhat is the size?",
               children: [
                 {
-                  id: 48,
+                  id: 74,
                   label: "< 4cm",
                   children: [
-                    { id: 49, label: "No radiographic or hormonal follow-up" }
+                    { id: 75, label: "No radiographic or hormonal follow-up" }
                   ]
                 },
                 {
-                  id: 50,
+                  id: 76,
                   label: "> 4cm",
                   children: [
-                    { id: 51, label: "Repeat CT in 6–12 months" }
+                    { id: 77, label: "Repeat CT in 6–12 months" }
                   ]
                 }
               ]
             },
             {
-              id: 52,
-              label: "Testing Not Performed",
-              question: "Perform hormone function screen \nIs there hypotension/hypokalemia?",
+              id: 78,
+              label: "Testing Not Yet Performed",
               children: [
                 {
-                  id: 53,
-                  label: "Yes",
-                  children: [
-                    {
-                      id: 54,
-                      label: "1. Test urine metanephrines/normetanephrines\n" +
-                        "2. Test serum renin/aldosterone ratio\n" +
-                        "3. Perform 1mg dexamethasone suppression test"
-                    }
-                  ]
-                },
-                {
-                  id: 55,
-                  label: "No",
-                  children: [
-                    {
-                      id: 56,
-                      label: "1. Test urine metanephrines/normetanephrines\n" +
-                        "2. No indication to perform serum renin/aldosterone ratio\n" +
-                        "3. Perform 1mg dexamethasone suppression test"
-                    }
-                  ]
+                  id: 79,
+                  label:
+                    "1. Test serum renin/aldosterone ratio only if there is hypertension and or hyperkalemia\n" +
+                    "2. Perform 1mg dexamethasone suppression test\n" +
+                    "3. Consider testing for plasma-free metanephrines or 24-hour urinary fractionated metanephrines if symptoms of catecholamine excess"
                 }
               ]
             }
@@ -267,14 +166,14 @@ const flowChartTree = {
       ]
     },
     {
-      id: 57,
+      id: 80,
       label: "No",
       children: [
-        { id: 58, label: "Perform non-contrast CT" }
+        { id: 81, label: "Perform non-contrast CT" }
       ]
     }
   ]
-};
+}
 
 
 
@@ -286,15 +185,15 @@ function App() {
     <div className="App">
       <Navbar></Navbar>
       {!calculate && <div className="h-screen w-screen flex flex-col items-center justify-center p-10 bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md text-center">
+        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md text-center">
 
-        <h1 className="text-4xl font-bold">Adrenal Nhamogram</h1>
-        <h4 className="text-sm py-5">Workup and Management of the Adrenal Incidentaloma</h4>
-        <button
-          className="bg-gray-500 hover:bg-gray-800 text-white p-3 rounded-lg"
-        onClick={() => setCalculate(true)}>
-          Continue
-        </button>
+          <h1 className="text-4xl font-bold">Adrenal Nhamogram</h1>
+          <h4 className="text-sm py-5">Workup and Management of the Adrenal Incidentaloma</h4>
+          <button
+            className="bg-gray-500 hover:bg-gray-800 text-white p-3 rounded-lg"
+            onClick={() => setCalculate(true)}>
+            Continue
+          </button>
         </div>
       </div>}
       {calculate && <FlowChart root={flowChartTree} />}

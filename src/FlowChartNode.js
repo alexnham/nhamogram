@@ -36,7 +36,7 @@ const FlowChartNode = ({ node, onSelect, onBack, prevNode }) => (
                     onClick={() => { window.location.reload(); }}
                     className="mt-4 px-4 py-2 bg-gray-500 text-white font-semibold rounded hover:bg-gray-600"
                 >
-                    Continue
+                    Finish
                 </button>
             </div>
         )}
